@@ -29,19 +29,22 @@ function initLogged() {
         return;
     }
 
-    let editorMessage = document.getElementById('editor-message');
-    if (editorMessage) {
-        editorMessage.classList.remove('hidden');
+    let components = document.querySelectorAll('.is-connected');
+    for (let i = 0; i < components.length; i++) {
+        components[i].classList.remove('hidden'); 
     }
 
-    document.querySelector('#projets .title i').classList.remove('hidden');
+    components = document.querySelectorAll('.is-deconnected');
+    for (let i = 0; i < components.length; i++) {
+        components[i].classList.add('hidden'); 
+    }
 
-    console.log('test');
+    let openModalBtn = document.getElementById('open-modal');
+    openModalBtn.classList.add('cursor-pointer');
     
-    let openModal = document.getElementById('open-modal');
-    openModal.addEventListener('click', switchOpenModal )
-    let closeModal = document.getElementById('close-modal');
-    closeModal.addEventListener('click', switchOpenModal )
+    document.getElementById('logout-button').addEventListener('click', logout);
+    openModalBtn.addEventListener('click', switchOpenModal);
+    document.getElementById('close-modal').addEventListener('click', switchOpenModal );
 
 }
 
@@ -126,6 +129,11 @@ function isLogged() {
 
 function getToken() {
     return sessionStorage.getItem(tokenName);
+}
+
+function logout() {
+    sessionStorage.removeItem(tokenName);
+    location.reload();
 }
 
 function switchOpenModal() {

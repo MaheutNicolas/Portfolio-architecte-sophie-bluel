@@ -116,14 +116,24 @@ nav li {
 nav li img {
 	width: 20px;
 }
+
 nav i {
 	font-size: 22px;
 }
-nav i, nav a {
+
+nav i, nav a, nav button {
 	color: black;
 }
 
-nav i:hover, nav a:hover {
+nav button {
+	background: none;
+	border: none;
+	text-decoration: none;
+	font-size: 16.8px;
+	font-family: 'Work Sans';
+}
+
+nav i:hover, nav a:hover, nav button:hover {
 	font-weight: 600;
 }
 
@@ -241,7 +251,7 @@ footer nav ul {
 
 /* ---- AJOUT --- */
 
-#login a {
+#login a, #login button {
 	color: black;
 	text-decoration: underline;
 }
@@ -318,7 +328,7 @@ footer nav ul {
 	gap: 5px;
 }
 
-#open-modal, 
+.cursor-pointer, 
 #close-modal {
 	cursor: pointer;
 }

@@ -14,7 +14,7 @@
 	<link rel="stylesheet" href="./assets/style.css">
 </head>
 <body>
-	<div id="editor-message" class="hidden">
+	<div id="editor-message" class="is-connected hidden">
 		<i class="fa-solid fa-pen-to-square"></i>
 		<span>Mode édition</span>
 	</div>
@@ -24,7 +24,8 @@
 			<ul>
 				<li><a href="/index.html#portfolio">projets</a></li>
 				<li><a href="/index.html#contact">contact</a></li>
-				<li><a href="/login.html">login</a></li>
+				<li class="is-deconnected" ><a href="/login.html" >login</a></li>
+				<li id="logout-button" class="is-connected hidden"><button>logout</button></li>
 				<li><i class="fa-brands fa-instagram"></i></li>
 			</ul>
 		</nav>
@@ -44,7 +45,7 @@
 		<section id="projets">
 			<div class="title" id="open-modal">
 				<h2>Mes Projets</h2>
-				<i class="fa-solid fa-pen-to-square hidden"></i>
+				<i class="fa-solid fa-pen-to-square is-connected hidden"></i>
 			</div>
 
 			<div class="gallery" id="gallery">
