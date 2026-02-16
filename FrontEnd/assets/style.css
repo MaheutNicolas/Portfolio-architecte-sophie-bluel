@@ -23,40 +23,57 @@ time, mark, audio, video {
 	font: inherit;
 	vertical-align: baseline;
 }
+
+a {
+	text-decoration: none;
+}
+
 /* HTML5 display-role reset for older browsers */
 article, aside, details, figcaption, figure,
 footer, header, hgroup, menu, nav, section {
 	display: block;
 }
+
 body {
 	line-height: 1;
+	background-color: rgba(255, 254, 248, 1);
 }
+
 ol, ul {
 	list-style: none;
 }
+
 blockquote, q {
 	quotes: none;
 }
+
 blockquote:before, blockquote:after,
 q:before, q:after {
 	content: '';
 	content: none;
 }
+
 table {
 	border-collapse: collapse;
 	border-spacing: 0;
 }
+
 /** end reset css**/
+
 body {
-	max-width: 1140px;
-	margin:auto;
 	font-family: 'Work Sans' ;
 	font-size: 14px;
 }
+
+header, main, footer {
+	max-width: 1140px;
+	margin:auto;
+}
+
 header {
 	display: flex;
 	justify-content: space-between;
-	margin: 50px 0
+	margin: 50px auto;
 }
 section {
 	margin: 50px 0
@@ -87,12 +104,27 @@ h2{
 nav ul {
 	display: flex;
 	align-items: center;
+	justify-content: center;
 	list-style-type: none;
 
 }
 nav li {
 	padding: 0 10px;
 	font-size: 1.2em;
+}
+
+nav li img {
+	width: 20px;
+}
+nav i {
+	font-size: 22px;
+}
+nav i, nav a {
+	color: black;
+}
+
+nav i:hover, nav a:hover {
+	font-weight: 600;
 }
 
 li:hover {
@@ -137,34 +169,44 @@ li:hover {
 	width: 100%;
 
 }
+
 #contact {
 	width: 50%;
-margin: auto;
+	margin: auto;
 }
-#contact > * {
-	text-align: center;
 
+#login {
+	width: 379px;
+	margin: 150px auto;
 }
-#contact h2{
+
+.form-section > * {
+	text-align: center;
+}
+
+.form-section h2{
 	margin-bottom: 20px;
 }
-#contact form {
+
+.form-section form {
 	text-align: left;
 	margin-top:30px;
 	display: flex;
 	flex-direction: column;
 }
 
-#contact input {
+.form-section input {
 	height: 50px;
 	font-size: 1.2em;
 	border: none;
 	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
 }
-#contact label {
+
+.form-section label {
 	margin: 2em 0 1em 0;
 }
-#contact textarea {
+
+.form-section textarea {
 	border: none;
 	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
 }
@@ -180,9 +222,103 @@ input[type="submit"]{
 	border-radius: 60px ;
 }
 
+footer {
+	height: fit-content;
+	width: 100%;
+	background-color: white;
+}
+
 footer nav ul {
 	display: flex;
 	justify-content: flex-end;
-	margin: 2em
+	padding: 2em;
 }
 
+.center { 
+	display: flex;
+	justify-content: center;
+}
+
+/* ---- AJOUT --- */
+
+#login a {
+	color: black;
+	text-decoration: underline;
+}
+
+#editor-message {
+	height: 59px;
+	width: 99vw;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	gap: 5px;
+	background-color: black;
+	color: white;
+}
+
+#editor-message.hidden {
+	display: none;
+}
+
+.hidden {
+	display: none;
+}
+
+#modal-background {
+	width: 100dvw;
+	height: 100dvh;
+	position: fixed;
+	top: 0;
+	left: 0;
+	margin: 0;
+	padding: 0;
+	background-color: rgba(0, 0, 0, 0.3);
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+#modal-background.hidden {
+	display: none;
+}
+
+#modal {
+	width: 630px;
+	border-radius: 10px;
+	padding: 30px 50px;
+	background-color: rgba(255, 255, 255, 1);
+}
+
+#modal .right {
+	display: flex;
+	justify-content: end;
+	width: 100%;
+	font-size: 20px;
+}
+
+#modal .main {
+	display: flex;
+	justify-content: center;
+	width: 100%;
+}
+
+#modal span {
+	font-family: Work Sans;
+	font-weight: 400;
+	font-size: 26px;
+}
+
+#projets .title {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 100%;
+	margin: 20px;
+	gap: 5px;
+}
+
+#open-modal, 
+#close-modal {
+	cursor: pointer;
+}
