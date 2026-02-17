@@ -298,6 +298,7 @@ footer nav ul {
 	border-radius: 10px;
 	padding: 30px 50px;
 	background-color: rgba(255, 255, 255, 1);
+	height: fit-content;
 }
 
 #modal .right {
@@ -309,7 +310,11 @@ footer nav ul {
 
 #modal .main {
 	display: flex;
+	flex-direction: column;
+	gap: 10px;
 	justify-content: center;
+	align-items: center;
+	height: max-content;
 	width: 100%;
 }
 
@@ -331,4 +336,50 @@ footer nav ul {
 .cursor-pointer, 
 #close-modal {
 	cursor: pointer;
+}
+
+#modal-gallery {
+	display: grid;
+	grid-template-columns: repeat(5, 1fr);
+	gap: 5px;
+}
+
+#modal-gallery figure {
+	max-width: 100px;
+	width: 100%;
+	height: 100px;
+}
+
+#modal-gallery figure img {
+	height: 100%;
+	object-fit: contain;
+}
+
+#filter {
+	width: 100%;
+	display: flex;
+	justify-content: center;
+	padding: 40px;
+	gap: 10px;
+}
+
+#filter.hidden {
+	display: none;
+}
+
+#filter button {
+	border-radius: 60px;
+	border-width: 1px;
+	color: rgba(29, 97, 84, 1);
+	border: 1px solid rgba(29, 97, 84, 1);
+	background: none;
+	padding: 8px 30px;
+	font-size: 16px;
+	font-weight: 700;
+	cursor: pointer;
+}
+
+#filter button:hover, button.selected {
+	background: rgba(29, 97, 84, 1);
+	color: rgba(255, 255, 255, 1);
 }

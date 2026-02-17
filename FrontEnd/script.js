@@ -1,4 +1,6 @@
 const tokenName = 'SophieApiToken';
+let projects = [];
+let filter = 0;
 
 // ------ MAIN FUNCTION ------
 function initLogin() {
@@ -55,31 +57,70 @@ async function getProject() {
         return;
     }
 
-    let response = await callAPI( 
+    projects = await callAPI( 
         "works", 
         "GET"
     ); // id / title / imageUrl / categoryId / UserId
-
-    console.log(response);
     
-    let length = response.length;
+    renderProject();
+}
+
+function renderProject() {
+    let projectsHolder = document.querySelector('#gallery');
+    let modalGallery = document.querySelector('#modal-gallery');
+
     projectsHolder.innerHTML = "";
+    modalGallery.innerHTML = "";
 
-    if ( length == 0 ) {
-        return;
-    }
+    for (let i = 0; i < projects.length; i++) {
+        if ( projects[i].categoryId != filter && filter != 0 ) {
+            continue;
+        }
 
-    for (let i = 0; i < length; i++) {
         let figure = document.createElement('figure');
         let img = document.createElement('img');
-        img.setAttribute('src', response[i].imageUrl)
+        img.setAttribute('src', projects[i].imageUrl)
         let figcaption = document.createElement('figcaption');
-        figcaption.innerHTML = response[i].title;
+        figcaption.innerHTML = projects[i].title;
 
         figure.appendChild(img);
         figure.appendChild(figcaption);
         projectsHolder.appendChild(figure);
+        modalGallery.appendChild(figure.cloneNode(true));
     }
+}
+
+async function initFilter() {
+    let categories = await callAPI( 
+        "categories", 
+        "GET"
+    );
+
+    let filter = document.getElementById('filter');
+
+    for (let i = 0; i < categories.length; i++) {
+        let button = document.createElement('button');
+        button.dataset['index'] = categories[i].id;
+        button.innerHTML = categories[i].name;
+        button.addEventListener('click', filterProject);
+        filter.appendChild(button);
+    }
+
+    document.querySelector('#filter .all').addEventListener('click', filterProject);
+
+}
+
+function filterProject(e) {
+    let target = e.target
+    let buttons = document.querySelectorAll('#filter button');
+
+    for (let i = 0; i < buttons.length; i++) {
+        buttons[i].classList.remove('selected');
+    }
+    target.classList.add('selected');
+
+    filter = target.dataset.index;
+    renderProject();
 }
 
 // ------ INIT ALL ------
@@ -92,6 +133,7 @@ function init () {
         }
         getProject();
         initLogged();
+        initFilter();
     });
 }
 
