@@ -338,21 +338,51 @@ footer nav ul {
 	cursor: pointer;
 }
 
+#see-all-project {
+	height: fit-content;
+	display: flex;
+	flex-direction: column;
+	gap: 20px;
+}
+
 #modal-gallery {
 	display: grid;
 	grid-template-columns: repeat(5, 1fr);
-	gap: 5px;
+	row-gap: 35px;
+	column-gap: 10px;
+	height: min-content;
 }
 
 #modal-gallery figure {
 	max-width: 100px;
 	width: 100%;
-	height: 100px;
+	height: 120px;
+	position: relative;
 }
 
 #modal-gallery figure img {
 	height: 100%;
 	object-fit: contain;
+}
+
+#modal-gallery .delete {
+	padding: 2px;
+	background-color: black;
+	position: absolute;
+	right: 5px;
+	top: 5px;
+	z-index: 10;
+	width: 20px;
+	height: 20px;
+	border-radius: 5px;
+}
+
+#modal-gallery .delete i {
+	font-size: 16px;
+	color: white;
+    position: absolute;
+	top: 4px;
+    left: 4px;
 }
 
 #filter {
@@ -367,7 +397,7 @@ footer nav ul {
 	display: none;
 }
 
-#filter button {
+.btn {
 	border-radius: 60px;
 	border-width: 1px;
 	color: rgba(29, 97, 84, 1);
@@ -379,7 +409,7 @@ footer nav ul {
 	cursor: pointer;
 }
 
-#filter button:hover, button.selected {
+.btn:hover, .btn.selected, .btn.secondary {
 	background: rgba(29, 97, 84, 1);
 	color: rgba(255, 255, 255, 1);
 }

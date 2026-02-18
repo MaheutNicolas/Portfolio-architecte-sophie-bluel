@@ -14,7 +14,6 @@ function initLogin() {
                 "email" : form.querySelector('[name="email"]').value,
                 "password" : form.querySelector('[name="password"]').value
             }
-            
         );
 
         if ( response === false ) {
@@ -63,14 +62,13 @@ async function getProject() {
     ); // id / title / imageUrl / categoryId / UserId
     
     renderProject();
+    renderModalProject();
 }
 
 function renderProject() {
     let projectsHolder = document.querySelector('#gallery');
-    let modalGallery = document.querySelector('#modal-gallery');
 
     projectsHolder.innerHTML = "";
-    modalGallery.innerHTML = "";
 
     for (let i = 0; i < projects.length; i++) {
         if ( projects[i].categoryId != filter && filter != 0 ) {
@@ -86,7 +84,30 @@ function renderProject() {
         figure.appendChild(img);
         figure.appendChild(figcaption);
         projectsHolder.appendChild(figure);
-        modalGallery.appendChild(figure.cloneNode(true));
+    }
+}
+
+function renderModalProject() {
+    let modalGallery = document.querySelector('#modal-gallery');
+
+    modalGallery.innerHTML = "";
+
+    for (let i = 0; i < projects.length; i++) {
+        let figure = document.createElement('figure');
+        let img = document.createElement('img');
+        img.setAttribute('src', projects[i].imageUrl);
+
+        let span = document.createElement('span');
+        span.classList.add('delete');
+        span.addEventListener('click', deleteProject);
+        
+        let trashcan = document.createElement('i');
+        trashcan.classList.add('fa-solid', 'fa-trash-can');
+        span.appendChild(trashcan);
+
+        figure.appendChild(img);
+        figure.appendChild(span);
+        modalGallery.appendChild(figure);
     }
 }
 
@@ -101,6 +122,7 @@ async function initFilter() {
     for (let i = 0; i < categories.length; i++) {
         let button = document.createElement('button');
         button.dataset['index'] = categories[i].id;
+        button.classList.add('btn');
         button.innerHTML = categories[i].name;
         button.addEventListener('click', filterProject);
         filter.appendChild(button);
@@ -123,6 +145,16 @@ function filterProject(e) {
     renderProject();
 }
 
+async function deleteProject() {
+    let confirmation = await confirm('Voulez vous supprimer le projet ?');
+    if ( !confirmation) {
+        return;
+    }
+    
+    console.log('projet supprimers');
+    
+}
+
 // ------ INIT ALL ------
 
 function init () {
@@ -131,9 +163,12 @@ function init () {
             initLogin();
             return;
         }
+
         getProject();
         initLogged();
-        initFilter();
+        if ( !isLogged() ) {
+            initFilter();
+        }
     });
 }
 
