@@ -60,6 +60,8 @@ table {
 
 /** end reset css**/
 
+/* ==== BASIC === */
+
 body {
 	font-family: 'Work Sans' ;
 	font-size: 14px;
@@ -92,7 +94,6 @@ h1 > span {
 	font-family: 'Work Sans';
 	font-size:10px;
 	letter-spacing: 0.1em;
-;
 }
 
 h2{
@@ -101,6 +102,47 @@ h2{
 	font-size: 30px;
 	color: #1D6154
 }
+
+.hidden {
+	display: none;
+}
+
+.btn {
+	border-radius: 60px;
+	border-width: 1px;
+	color: rgba(29, 97, 84, 1);
+	border: 1px solid rgba(29, 97, 84, 1);
+	background: none;
+	padding: 8px 30px;
+	font-size: 16px;
+	font-weight: 700;
+	cursor: pointer;
+}
+
+.btn:hover, .btn.selected, .btn.secondary {
+	background: rgba(29, 97, 84, 1);
+	color: rgba(255, 255, 255, 1);
+}
+
+/* === EDITOR MESSAGE === */
+
+#editor-message {
+	height: 59px;
+	width: 99vw;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	gap: 5px;
+	background-color: black;
+	color: white;
+}
+
+#editor-message.hidden {
+	display: none;
+}
+
+/* === NAV === */
+
 nav ul {
 	display: flex;
 	align-items: center;
@@ -140,13 +182,18 @@ nav i:hover, nav a:hover, nav button:hover {
 li:hover {
 	color: #B1663C;
 }
+
+/* === INTRODUCTION === */
+
 #introduction {
 	display: flex;
 	align-items: center;
 }
+
 #introduction figure {
 	flex: 1
 }
+
 #introduction img {
 	display: block;
 	margin: auto;
@@ -156,6 +203,7 @@ li:hover {
 #introduction article {
 	flex: 1
 }
+
 #introduction h2 {
 	margin-bottom: 1em;
 }
@@ -163,10 +211,18 @@ li:hover {
 #introduction p {
 	margin-bottom: 0.5em;
 }
-#portfolio h2 {
-	text-align: center;
-	margin-bottom: 1em;
+
+/* === PROJETS === */
+
+#projets .title {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 100%;
+	margin: 20px;
+	gap: 5px;
 }
+
 .gallery {
 	width: 100%;
 	display: grid;
@@ -180,6 +236,20 @@ li:hover {
 
 }
 
+#filter {
+	width: 100%;
+	display: flex;
+	justify-content: center;
+	padding: 40px;
+	gap: 10px;
+}
+
+#filter.hidden {
+	display: none;
+}
+
+/* === CONTACT ET LOGIN === */
+
 #contact {
 	width: 50%;
 	margin: auto;
@@ -188,6 +258,11 @@ li:hover {
 #login {
 	width: 379px;
 	margin: 150px auto;
+}
+
+#login a, #login button {
+	color: black;
+	text-decoration: underline;
 }
 
 .form-section > * {
@@ -232,6 +307,8 @@ input[type="submit"]{
 	border-radius: 60px ;
 }
 
+/* === FOOTER === */
+
 footer {
 	height: fit-content;
 	width: 100%;
@@ -249,31 +326,7 @@ footer nav ul {
 	justify-content: center;
 }
 
-/* ---- AJOUT --- */
-
-#login a, #login button {
-	color: black;
-	text-decoration: underline;
-}
-
-#editor-message {
-	height: 59px;
-	width: 99vw;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	gap: 5px;
-	background-color: black;
-	color: white;
-}
-
-#editor-message.hidden {
-	display: none;
-}
-
-.hidden {
-	display: none;
-}
+/* === MODAL === */
 
 #modal-background {
 	width: 100dvw;
@@ -324,15 +377,6 @@ footer nav ul {
 	font-size: 26px;
 }
 
-#projets .title {
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	width: 100%;
-	margin: 20px;
-	gap: 5px;
-}
-
 .cursor-pointer, 
 #close-modal {
 	cursor: pointer;
@@ -375,41 +419,15 @@ footer nav ul {
 	width: 20px;
 	height: 20px;
 	border-radius: 5px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }
 
 #modal-gallery .delete i {
 	font-size: 16px;
 	color: white;
-    position: absolute;
-	top: 4px;
-    left: 4px;
 }
 
-#filter {
-	width: 100%;
-	display: flex;
-	justify-content: center;
-	padding: 40px;
-	gap: 10px;
-}
 
-#filter.hidden {
-	display: none;
-}
 
-.btn {
-	border-radius: 60px;
-	border-width: 1px;
-	color: rgba(29, 97, 84, 1);
-	border: 1px solid rgba(29, 97, 84, 1);
-	background: none;
-	padding: 8px 30px;
-	font-size: 16px;
-	font-weight: 700;
-	cursor: pointer;
-}
-
-.btn:hover, .btn.selected, .btn.secondary {
-	background: rgba(29, 97, 84, 1);
-	color: rgba(255, 255, 255, 1);
-}

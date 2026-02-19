@@ -2,7 +2,7 @@ const tokenName = 'SophieApiToken';
 let projects = [];
 let filter = 0;
 
-// ------ MAIN FUNCTION ------
+// ------ MAINS FUNCTION ------
 function initLogin() {
     let form = document.querySelector('#login form');
     form.addEventListener('submit', async (e) => {
@@ -17,6 +17,8 @@ function initLogin() {
         );
 
         if ( response === false ) {
+            //run dev
+
             return;
         }
         
@@ -26,10 +28,6 @@ function initLogin() {
 }
 
 function initLogged() {
-    if ( !isLogged() ) {
-        return;
-    }
-
     let components = document.querySelectorAll('.is-connected');
     for (let i = 0; i < components.length; i++) {
         components[i].classList.remove('hidden'); 
@@ -46,7 +44,6 @@ function initLogged() {
     document.getElementById('logout-button').addEventListener('click', logout);
     openModalBtn.addEventListener('click', switchOpenModal);
     document.getElementById('close-modal').addEventListener('click', switchOpenModal );
-
 }
 
 async function getProject() {
@@ -100,6 +97,7 @@ function renderModalProject() {
         let span = document.createElement('span');
         span.classList.add('delete');
         span.addEventListener('click', deleteProject);
+        span.dataset['index'] = projects[i].id
         
         let trashcan = document.createElement('i');
         trashcan.classList.add('fa-solid', 'fa-trash-can');
@@ -145,14 +143,25 @@ function filterProject(e) {
     renderProject();
 }
 
-async function deleteProject() {
+async function deleteProject(e) {
     let confirmation = await confirm('Voulez vous supprimer le projet ?');
     if ( !confirmation) {
         return;
     }
+
+    let target = e.target;
+    while (! target.classList.contains('delete') ) {
+        target = target.parentNode;
+    }
+
+    let index = target.dataset.index;
     
-    console.log('projet supprimers');
-    
+    let response = await callAPI( 
+        "works/"+index, 
+        "DELETE"
+    );
+
+    getProject();
 }
 
 // ------ INIT ALL ------
@@ -165,8 +174,11 @@ function init () {
         }
 
         getProject();
-        initLogged();
-        if ( !isLogged() ) {
+
+        if ( isLogged() ) {
+            initLogged();
+        }
+        else {
             initFilter();
         }
     });
@@ -183,7 +195,8 @@ async function callAPI( url = "", method = "GET", data = [] ) {
             method: method,
             headers: {
                 "accept": "application/json",
-                "Content-Type": "application/json"
+                "Content-Type": "application/json",
+                "Authorization" : "Bearer "+getToken()
             },
             body: method != "GET" ? JSON.stringify(data) : null
         }
@@ -193,7 +206,7 @@ async function callAPI( url = "", method = "GET", data = [] ) {
             return false;
         }
         return response.json();
-    })
+    });
 }
 
 function isLogged() {
