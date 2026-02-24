@@ -104,7 +104,7 @@ h2{
 }
 
 .hidden {
-	display: none;
+	display: none !important;
 }
 
 .btn {
@@ -354,9 +354,9 @@ footer nav ul {
 	height: fit-content;
 }
 
-#modal .right {
+#modal .buttons {
 	display: flex;
-	justify-content: end;
+	justify-content: space-between;
 	width: 100%;
 	font-size: 20px;
 }
@@ -382,11 +382,23 @@ footer nav ul {
 	cursor: pointer;
 }
 
-#see-all-project {
+#see-all-project, 
+#add-new-project {
 	height: fit-content;
 	display: flex;
 	flex-direction: column;
+	justify-content: center;
+	align-items: center;
 	gap: 20px;
+}
+
+#add-new-project form {
+	height: fit-content;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	gap: 10px;
 }
 
 #modal-gallery {

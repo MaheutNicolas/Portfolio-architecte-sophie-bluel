@@ -1,31 +1,13 @@
-const tokenName = 'SophieApiToken';
-let projects = [];
+import { callAPI } from "./helper.js";
+import { sendFormData } from "./helper.js";
+import { isLogged } from "./helper.js";
+import { logout } from "./helper.js";
+import { switchOpenModal } from "./helper.js";
+import { switchModalPage } from "./helper.js";
+
+let projects = []; // id / title / imageUrl / categoryId / UserId
+let categories = []; // id, name
 let filter = 0;
-
-// ------ MAINS FUNCTION ------
-function initLogin() {
-    let form = document.querySelector('#login form');
-    form.addEventListener('submit', async (e) => {
-        e.preventDefault();
-        let response = await callAPI( 
-            "users/login", 
-            "POST", 
-            { 
-                "email" : form.querySelector('[name="email"]').value,
-                "password" : form.querySelector('[name="password"]').value
-            }
-        );
-
-        if ( response === false ) {
-            //run dev
-
-            return;
-        }
-        
-        sessionStorage.setItem(tokenName, response.token);
-        window.location.href = "/index.html";
-    });
-}
 
 function initLogged() {
     let components = document.querySelectorAll('.is-connected');
@@ -44,6 +26,8 @@ function initLogged() {
     document.getElementById('logout-button').addEventListener('click', logout);
     openModalBtn.addEventListener('click', switchOpenModal);
     document.getElementById('close-modal').addEventListener('click', switchOpenModal );
+
+    initSwitchModal();
 }
 
 async function getProject() {
@@ -56,7 +40,7 @@ async function getProject() {
     projects = await callAPI( 
         "works", 
         "GET"
-    ); // id / title / imageUrl / categoryId / UserId
+    ); 
     
     renderProject();
     renderModalProject();
@@ -109,12 +93,14 @@ function renderModalProject() {
     }
 }
 
-async function initFilter() {
-    let categories = await callAPI( 
+async function getCategory() {
+    categories = await callAPI( 
         "categories", 
         "GET"
     );
+}
 
+async function initFilter() {
     let filter = document.getElementById('filter');
 
     for (let i = 0; i < categories.length; i++) {
@@ -127,7 +113,36 @@ async function initFilter() {
     }
 
     document.querySelector('#filter .all').addEventListener('click', filterProject);
+}
 
+function initPostProject() {
+
+    //category selector
+    let selector = document.querySelector('#post-category');
+    for (let i = 0; i < categories.length; i++) {
+        let option = document.createElement('option');
+        option.setAttribute('value', categories[i].id);
+        option.innerHTML = categories[i].name;
+        selector.appendChild(option);
+    }
+
+    //post function 
+    document.getElementById('post-project').addEventListener('submit', async (e) => {
+        e.preventDefault();
+
+        const form = document.getElementById('post-project');
+        
+        let formData = new FormData();
+        formData.append("image", document.getElementById("post-image").files[0]);
+        formData.append("title", document.getElementById("post-title").value);    
+        formData.append("category", document.getElementById("post-category").value);
+        
+        await sendFormData('works', formData);
+        getProject();
+
+        switchModalPage(1);
+        form.reset();
+    });
 }
 
 function filterProject(e) {
@@ -156,7 +171,7 @@ async function deleteProject(e) {
 
     let index = target.dataset.index;
     
-    let response = await callAPI( 
+    await callAPI( 
         "works/"+index, 
         "DELETE"
     );
@@ -164,76 +179,30 @@ async function deleteProject(e) {
     getProject();
 }
 
-// ------ INIT ALL ------
+function initSwitchModal() {
+    document.getElementById('back-modal').addEventListener('click', () => {
+        switchModalPage(1);
+    });
 
+    document.querySelector('#see-all-project button').addEventListener('click', () => {
+        switchModalPage(2);
+    });
+}
+
+// ------ INIT ALL ------
 function init () {
-    document.addEventListener('DOMContentLoaded', () => {
-        if (document.getElementById('login')) {
-            initLogin();
+    document.addEventListener('DOMContentLoaded', async () => {
+        getProject();
+        await getCategory();
+
+        if ( !isLogged()) {
+            initFilter();
             return;
         }
-
-        getProject();
-
-        if ( isLogged() ) {
-            initLogged();
-        }
-        else {
-            initFilter();
-        }
+        
+        initLogged();
+        initPostProject();
     });
 }
-
-
-// ------ HELPERS ------
-
-async function callAPI( url = "", method = "GET", data = [] ) {
-    let defaultUrl = "http://localhost:5678/api/";
-    return await fetch(
-        defaultUrl+url,
-        {
-            method: method,
-            headers: {
-                "accept": "application/json",
-                "Content-Type": "application/json",
-                "Authorization" : "Bearer "+getToken()
-            },
-            body: method != "GET" ? JSON.stringify(data) : null
-        }
-    )
-    .then( response => {
-        if ( response.status != 200 && response.status != 201 ) {
-            return false;
-        }
-        return response.json();
-    });
-}
-
-function isLogged() {
-    let token = sessionStorage.getItem(tokenName);
-    if ( token ) {
-        return true;
-    }
-    return false;
-}
-
-function getToken() {
-    return sessionStorage.getItem(tokenName);
-}
-
-function logout() {
-    sessionStorage.removeItem(tokenName);
-    location.reload();
-}
-
-function switchOpenModal() {
-    let modal = document.getElementById('modal-background');
-    if ( modal.classList.contains('hidden') ) {
-        modal.classList.remove('hidden');
-        return;
-    }
-    modal.classList.add('hidden');
-}
-
 
 init();
