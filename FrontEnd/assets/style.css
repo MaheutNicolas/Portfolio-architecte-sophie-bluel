@@ -81,6 +81,10 @@ section {
 	margin: 50px 0
 }
 
+.small-text {
+	font-size: 10px;
+}
+
 h1{
 	display: flex;
 	flex-direction: column;
@@ -122,6 +126,12 @@ h2{
 .btn:hover, .btn.selected, .btn.secondary {
 	background: rgba(29, 97, 84, 1);
 	color: rgba(255, 255, 255, 1);
+}
+
+.btn.grey {
+	color: rgba(48, 102, 133, 1);
+	background: rgba(185, 197, 204, 1);
+	border: none;
 }
 
 /* === EDITOR MESSAGE === */
@@ -280,7 +290,9 @@ li:hover {
 	flex-direction: column;
 }
 
-.form-section input {
+.form-section input,
+.form-section select {
+	padding-left: 15px;
 	height: 50px;
 	font-size: 1.2em;
 	border: none;
@@ -364,14 +376,13 @@ footer nav ul {
 #modal .main {
 	display: flex;
 	flex-direction: column;
-	gap: 10px;
+	gap: 5px;
 	justify-content: center;
 	align-items: center;
-	height: max-content;
 	width: 100%;
 }
 
-#modal span {
+#modal .title {
 	font-family: Work Sans;
 	font-weight: 400;
 	font-size: 26px;
@@ -384,21 +395,13 @@ footer nav ul {
 
 #see-all-project, 
 #add-new-project {
+	width: 80%;
 	height: fit-content;
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
 	gap: 20px;
-}
-
-#add-new-project form {
-	height: fit-content;
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	align-items: center;
-	gap: 10px;
 }
 
 #modal-gallery {
@@ -421,7 +424,7 @@ footer nav ul {
 	object-fit: contain;
 }
 
-#modal-gallery .delete {
+.delete {
 	padding: 2px;
 	background-color: black;
 	position: absolute;
@@ -436,9 +439,58 @@ footer nav ul {
 	align-items: center;
 }
 
-#modal-gallery .delete i {
+.delete i {
 	font-size: 16px;
 	color: white;
+}
+
+#add-new-project form {
+	width: 100%;
+	height: fit-content;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+
+#add-new-project .frame {
+	position: relative;
+	width: 100%;
+	height: 170px;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	background-color: rgba(232, 241, 246, 1);
+}
+
+#add-new-project .frame label {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	padding: 10px;
+	gap: 5px;
+}
+
+#add-new-project .frame i.full {
+	font-size: 100px;
+	color: rgba(185, 197, 204, 1);
+}
+
+#add-new-project .field {
+	display: flex;
+	flex-direction: column;
+	gap: 5px;
+	width: 100%;
+}
+
+#post-displayer {
+	max-height: 100%;
+}
+
+#add-new-project label {
+	margin: 1em 0 0.5em 0;
 }
 
 

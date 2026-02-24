@@ -121,7 +121,7 @@
 				</div>
 				<div class="main">
 					<div id="see-all-project" class="step1">
-						<span>Galerie Photo</span>
+						<span class="title">Galerie Photo</span>
 						<div id="modal-gallery">
 
 						</div>
@@ -129,15 +129,29 @@
 					</div>
 
 					<div id="add-new-project" class="form-section step2 hidden">
-						<span>Ajout photo</span>
+						<span class="title">Ajout photo</span>
 						<form method="post" id="post-project" class="">
-							<input type="file" accept="image/png, image/jpeg, image/webp" id="post-image">
-							<label for="post-title">Titre</label>
-							<input type="text" name="title" id="post-title">
-							<label for="post-category">Catégorie</label>
-							<select name="category" id="post-category">
-								
-							</select>
+							<div class="frame">
+								<span class="delete hidden">
+									<i class="fa-solid fa-trash-can"></i>
+								</span>
+								<img src="" alt="" id="post-displayer" class="hidden">
+								<label for="post-image">
+									<i class="full fa-regular fa-image"></i>
+									<span class="btn grey">+ Ajouter une image</span>
+									<span class="small-text">jpg, png, webp : 4mo max</span>
+								</label>
+								<input type="file" accept="image/png, image/jpeg, image/webp" id="post-image" class="hidden" placeholder="">
+							</div>
+							<div class="field">
+								<label for="post-title">Titre</label>
+								<input type="text" name="title" id="post-title">
+							</div>
+							<div class="field">
+								<label for="post-category">Catégorie</label>
+								<select name="category" id="post-category">
+								</select>
+							</div>
 							<input type="submit" value="Envoyer">
 						</form>
 					</div>

@@ -117,6 +117,31 @@ async function initFilter() {
 
 function initPostProject() {
 
+    //post image preview
+    let fileSelector = document.getElementById("post-image");
+    fileSelector.addEventListener('change', (e) => {
+        let selector = e.target;
+        let displayer = document.getElementById("post-displayer");
+        let frame = document.querySelector("#modal .frame label");
+
+        if (selector.value == "") {
+            return;
+        }
+
+        const MAX_SIZE = 4 * 1024 * 1024;
+        if (selector.files[0].size > MAX_SIZE) {
+            alert(`Le fichier : ${file.name} est trop volumineux.`);
+            this.value = "";
+            return;
+        }
+
+        displayer.classList.remove('hidden');
+        displayer.src = URL.createObjectURL(selector.files[0]);
+
+        frame.classList.add('hidden');
+        document.querySelector('#add-new-project .delete').classList.remove('hidden');
+    })
+
     //category selector
     let selector = document.querySelector('#post-category');
     for (let i = 0; i < categories.length; i++) {
@@ -142,7 +167,26 @@ function initPostProject() {
 
         switchModalPage(1);
         form.reset();
+        resetDisplayer();
     });
+
+    //Remove Image 
+    document.querySelector('#add-new-project .delete').addEventListener('click', resetDisplayer);
+}
+
+function resetDisplayer() {
+    let displayer = document.getElementById("post-displayer");
+    let frame = document.querySelector("#modal .frame label");
+    let fileSelector = document.getElementById("post-image");
+
+    document.querySelector('#add-new-project .delete').classList.add('hidden');
+    displayer.classList.add('hidden');
+    displayer.src = "";
+    displayer.files = [];
+
+    frame.classList.remove('hidden');
+
+    fileSelector.value = "";
 }
 
 function filterProject(e) {
