@@ -30,6 +30,8 @@ function initLogged() {
     initSwitchModal();
 }
 
+// --- Gestion des projets --- 
+
 async function getProject() {
     let projectsHolder = document.querySelector('#gallery');
     
@@ -93,6 +95,8 @@ function renderModalProject() {
     }
 }
 
+// --- Gestion des catégories --- 
+
 async function getCategory() {
     categories = await callAPI( 
         "categories", 
@@ -114,6 +118,8 @@ async function initFilter() {
 
     document.querySelector('#filter .all').addEventListener('click', filterProject);
 }
+
+// --- Gère l'envoie de nouveau projets --- 
 
 function initPostProject() {
 
@@ -189,6 +195,8 @@ function resetDisplayer() {
     fileSelector.value = "";
 }
 
+// --- Filtre les projets  --- 
+
 function filterProject(e) {
     let target = e.target
     let buttons = document.querySelectorAll('#filter button');
@@ -201,6 +209,8 @@ function filterProject(e) {
     filter = target.dataset.index;
     renderProject();
 }
+
+// --- Supprime les projets ---  
 
 async function deleteProject(e) {
     let confirmation = await confirm('Voulez vous supprimer le projet ?');
@@ -223,6 +233,8 @@ async function deleteProject(e) {
     getProject();
 }
 
+// --- Gère la modal --- 
+
 function initSwitchModal() {
     document.getElementById('back-modal').addEventListener('click', () => {
         switchModalPage(1);
@@ -234,6 +246,7 @@ function initSwitchModal() {
 }
 
 // ------ INIT ALL ------
+
 function init () {
     document.addEventListener('DOMContentLoaded', async () => {
         getProject();

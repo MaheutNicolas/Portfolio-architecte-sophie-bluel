@@ -68,6 +68,7 @@ export function setToken(token) {
 export function logout() {
     sessionStorage.removeItem(tokenName);
     location.reload();
+    //window.location.href = "/login.html";
 }
 
 // --- Modal ---
