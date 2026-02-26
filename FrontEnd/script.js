@@ -150,6 +150,12 @@ function initPostProject() {
 
     //category selector
     let selector = document.querySelector('#post-category');
+
+    let blankOption = document.createElement('option');
+    blankOption.setAttribute('value', 0);
+    blankOption.innerHTML = "";
+    selector.appendChild(blankOption);
+
     for (let i = 0; i < categories.length; i++) {
         let option = document.createElement('option');
         option.setAttribute('value', categories[i].id);
@@ -157,7 +163,7 @@ function initPostProject() {
         selector.appendChild(option);
     }
 
-    //post function 
+    // post function 
     document.getElementById('post-project').addEventListener('submit', async (e) => {
         e.preventDefault();
 
@@ -176,8 +182,29 @@ function initPostProject() {
         resetDisplayer();
     });
 
-    //Remove Image 
+    // Remove Image 
     document.querySelector('#add-new-project .delete').addEventListener('click', resetDisplayer);
+
+    // Add input validator
+    document.querySelector('#post-image').addEventListener('change', validate);
+    document.querySelector('#post-title').addEventListener('input', validate);
+    selector.addEventListener('input', validate);
+}
+
+// --- Validator ---
+
+export function validate() {
+    let image = document.querySelector('#post-image');
+    let title = document.querySelector('#post-title');
+    let selector = document.querySelector('#post-category');
+
+    if ( image.value == "" || title.value == "" || selector.value == 0 ) {
+        document.querySelector('#post-send').disabled = true;
+        return;
+    }
+
+    document.querySelector('#post-send').disabled = false;
+
 }
 
 function resetDisplayer() {
@@ -193,6 +220,7 @@ function resetDisplayer() {
     frame.classList.remove('hidden');
 
     fileSelector.value = "";
+    document.querySelector('#post-send').disabled = true;
 }
 
 // --- Filtre les projets  --- 

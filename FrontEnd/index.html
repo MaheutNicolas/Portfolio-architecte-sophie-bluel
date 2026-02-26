@@ -141,7 +141,7 @@
 									<span class="btn grey">+ Ajouter une image</span>
 									<span class="small-text">jpg, png, webp : 4mo max</span>
 								</label>
-								<input type="file" accept="image/png, image/jpeg, image/webp" id="post-image" class="hidden" placeholder="">
+								<input type="file" accept="image/png, image/jpeg, image/webp" id="post-image" name="image" class="hidden" placeholder="">
 							</div>
 							<div class="field">
 								<label for="post-title">Titre</label>
@@ -152,7 +152,7 @@
 								<select name="category" id="post-category">
 								</select>
 							</div>
-							<input type="submit" value="Envoyer">
+							<input type="submit" value="Envoyer" id="post-send" disabled>
 						</form>
 					</div>
 				</div>
@@ -166,7 +166,6 @@
 				<li>Mentions Légales</li>
 			</ul>
 		</nav>
-		<!-- <script type="module" src="./script.js"></script> -->
 		<script type="module" src="./script.js"></script>
 	</footer>
 </body>

@@ -6,6 +6,9 @@ function initLogin() {
     let form = document.querySelector('#login form');
     form.addEventListener('submit', async (e) => {
         e.preventDefault();
+        console.log();
+        
+        document.querySelector('.error').classList.add('hidden');
         let response = await callAPI( 
             "users/login", 
             "POST", 
@@ -16,8 +19,7 @@ function initLogin() {
         );
 
         if ( response === false ) {
-            //run dev
-
+            document.querySelector('.error').classList.remove('hidden');
             return;
         }
         setToken(response.token);
