@@ -6,8 +6,7 @@ function initLogin() {
     let form = document.querySelector('#login form');
     form.addEventListener('submit', async (e) => {
         e.preventDefault();
-        console.log();
-        
+    
         document.querySelector('.error').classList.add('hidden');
         let response = await callAPI( 
             "users/login", 
